@@ -145,22 +145,7 @@
       </div>
     </section>
 
-    <section class="mt-12 md:mt-20 relative z-10 translate-y-8 md:translate-y-12">
-      <div class="bg-black rounded-[20px] p-6 md:p-12 lg:px-16 flex flex-col lg:flex-row items-center justify-between gap-6">
-        <h2 class="text-white text-2xl md:text-[40px] font-black uppercase leading-tight text-center lg:text-left lg:max-w-[550px]">
-          STAY UPTO DATE ABOUT OUR LATEST OFFERS
-        </h2>
-        <div class="flex flex-col gap-3 w-full md:max-w-[350px]">
-          <div class="relative">
-            <input type="email" placeholder="Enter your email address" class="w-full py-3 md:py-4 px-12 rounded-full text-sm outline-none" />
-            <span class="absolute left-5 top-1/2 -translate-y-1/2 opacity-40 text-lg">✉️</span>
-          </div>
-          <button class="w-full py-3 md:py-4 bg-white text-black rounded-full font-medium text-sm">
-            Subscribe to Newsletter
-          </button>
-        </div>
-      </div>
-    </section>
+    
 
   </div>
 </template>
