@@ -1,39 +1,34 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // Set the compatibility date for Nuxt features
+  // Project compatibility date
   compatibilityDate: '2025-07-15',
   
-  // Disable devtools in production for better performance
+  // Production optimizations: disable devtools
   devtools: { enabled: false },
 
-  // Single Page Application mode (No Server Side Rendering)
+  // Single Page Application mode
   ssr: false,
 
-  // Registering project modules
+  // Essential modules for styling, state, and images
   modules: [
     '@nuxtjs/tailwindcss', 
     '@pinia/nuxt', 
     '@nuxt/image'
   ],
 
-  // Nitro server engine configuration for asset optimization
+  // Nitro engine: compressing and minifying for faster delivery
   nitro: {
-    // Compress public assets (icons, images) during build
     compressPublicAssets: true,
-    // Minify the server-side output code
     minify: true
   },
 
-  // Vite-specific build optimizations
+  // Vite build optimization: chunk splitting
   vite: {
     build: {
-      // Set the warning limit for chunk sizes (in KB)
       chunkSizeWarningLimit: 500,
-      // Enable CSS code splitting for faster page loads
       cssCodeSplit: true,
       rollupOptions: {
         output: {
-          // Splitting node_modules into a separate 'vendor' chunk to improve caching
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
               return 'vendor';
@@ -44,24 +39,22 @@ export default defineNuxtConfig({
     }
   },
 
-  // Global application head configuration (SEO & Accessibility)
+  // Global Metadata and Accessibility
   app: {
     baseURL: '/',
-    // Smooth transitions between pages
     pageTransition: { 
       name: 'page', 
       mode: 'out-in' 
     },
     head: {
-      // Set HTML language attribute for accessibility and SEO
       htmlAttrs: {
         lang: 'en'
       },
-      title: 'Shop.co',
+      title: 'Shop.co | Modern E-commerce',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Modern E-commerce store built with Nuxt 3' }
+        { name: 'description', content: 'High-performance Nuxt 3 store' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
