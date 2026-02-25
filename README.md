@@ -1,29 +1,75 @@
-<img width="910" height="571" alt="1" src="https://github.com/user-attachments/assets/0d558770-20e4-420c-8fef-d926ffb4f72e" />
+# Nuxt Minimal Starter
 
-# 🛒 Shop.co — Modern E-commerce Website
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-A high-performance, pixel-perfect e-commerce storefront built with **Nuxt 3** and **Tailwind CSS**. 
+## Setup
 
-## ⚡ Performance Highlights (PageSpeed Insights)
-- **Desktop Score:** 98/100
-- **SEO:** 92/100
-- **First Contentful Paint:** 0.3s
-- **Total Blocking Time:** 0ms
+Make sure to install dependencies:
 
-## 🚀 Technologies Used
-* **Framework:** [Nuxt 3](https://nuxt.com/) (Vue.js 3)
-* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-* **State Management:** [Pinia](https://pinia.vuejs.org/) (for shopping cart logic)
-* **Deployment:** Netlify / Vercel
-* **Design:** Figma-to-Code (Pixel-perfect approach)
+```bash
+# npm
+npm install
 
-## ✨ Key Features
-- **Dynamic Routing:** Individual product pages generated from data.
-- **Interactive Cart:** Real-time updates, adding/removing items.
-- **Fully Responsive:** Optimized for all screen sizes (Mobile, Tablet, Desktop).
-- **SEO Optimized:** Server-side rendering (SSR) for better indexing.
+# pnpm
+pnpm install
 
-## 🛠️ How to run locally
-1. Clone the repository: `git clone [https://github.com/kamiinna2305/shop-co-nuxt]`
-2. Install dependencies: `npm install`
-3. Start development server: `npm run dev`
+# yarn
+yarn install
+
+# bun
+bun install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

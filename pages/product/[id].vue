@@ -1,6 +1,11 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 py-6 md:py-10" v-if="product">
     
+    <Head>
+      <Title>{{ product.name }} | Shop.co</Title>
+      <Meta name="description" :content="product.description" />
+    </Head>
+
     <nav class="flex items-center gap-2 text-black/60 text-sm mb-6 md:mb-8 border-t pt-6">
       <NuxtLink to="/" class="hover:text-black transition font-medium">Home</NuxtLink>
       <span class="text-xs">/</span>
@@ -11,9 +16,19 @@
 
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch">
       <div class="w-full lg:w-[610px] flex flex-col md:grid md:grid-cols-[152px_1fr] gap-3 md:gap-4">
+        
         <div class="bg-[#F0EEED] rounded-[20px] overflow-hidden h-full min-h-[350px] md:min-h-[500px] order-1 md:order-2">
-          <img :src="currentImage" class="w-full h-full object-cover transition-opacity duration-300" :alt="product.name" />
+          <NuxtImg 
+            :src="currentImage" 
+            class="w-full h-full object-cover transition-opacity duration-300" 
+            :alt="product.name"
+            width="600"
+            height="600"
+            priority
+            format="webp"
+          />
         </div>
+
         <div class="flex flex-row md:flex-col gap-3 order-2 md:order-1">
           <button 
             v-for="(image, index) in product.images" :key="index"
@@ -21,7 +36,14 @@
             class="flex-1 md:flex-none md:w-[152px] aspect-square md:aspect-[152/167] rounded-[20px] overflow-hidden border-2 transition-all"
             :class="currentImage === image ? 'border-black' : 'border-transparent bg-[#F0EEED]'"
           >
-            <img :src="image" class="w-full h-full object-cover" />
+            <NuxtImg 
+              :src="image" 
+              class="w-full h-full object-cover" 
+              width="152"
+              height="167"
+              format="webp"
+              loading="lazy"
+            />
           </button>
         </div>
       </div>
@@ -29,11 +51,11 @@
       <div class="flex-1 flex flex-col justify-between py-1">
         <div>
           <h1 class="text-3xl md:text-[48px] font-black uppercase tracking-tighter leading-[1] mb-2 md:mb-3">
-            T-SHIRT WITH TAPE DETAILS
+            {{ product.name }}
           </h1>
           <div class="flex items-center gap-3 mb-3 md:mb-4 text-xl">
             <div class="flex text-yellow-400">
-              <span v-for="i in 5" :key="i" :class="i <= 4 ? 'opacity-100' : 'opacity-20'">★</span>
+              <span v-for="i in 5" :key="i" :class="i <= Math.floor(product.rating || 4) ? 'opacity-100' : 'opacity-20'">★</span>
             </div>
             <span class="text-sm text-black/60">{{ product.rating || '4.5' }}/5</span>
           </div>
@@ -81,6 +103,7 @@
               </button>
             </div>
           </div>
+          
           <div class="flex gap-3 md:gap-5 pt-2 h-[52px] md:h-[60px]">
             <div class="bg-[#F0F0F0] px-4 md:px-6 rounded-full flex items-center justify-between w-[110px] md:w-[170px] shrink-0 font-bold">
               <button @click="quantity > 1 ? quantity-- : null" class="text-xl md:text-2xl">-</button> 
@@ -144,9 +167,6 @@
         <ProductCard v-for="p in allProducts?.newArrivals?.slice(0, 4)" :key="p.id" :product="p" />
       </div>
     </section>
-
-    
-
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div class="max-w-7xl mx-auto px-4 py-8 md:py-12">
     <nav class="text-black/60 text-sm mb-6 flex gap-2">
       <NuxtLink to="/" class="hover:text-black">Home</NuxtLink> 
@@ -16,8 +16,16 @@
              :class="{ 'border-b border-black/10': index !== cartStore.items.length - 1 }">
           
           <div class="w-24 h-24 md:w-32 md:h-32 bg-[#F0EEED] rounded-[12px] overflow-hidden flex-shrink-0">
-             <img :src="item.img" class="w-full h-full object-cover" :alt="item.name" />
-          </div>
+    <NuxtImg 
+      :src="item.img" 
+      :alt="item.name"
+      width="128" 
+      height="128"
+      format="webp"
+      loading="lazy"
+      class="w-full h-full object-cover" 
+    />
+</div>
           
           <div class="flex-1 flex flex-col justify-between">
             <div class="flex justify-between items-start">
@@ -28,8 +36,14 @@
               </div>
               
               <button @click="cartStore.removeFromCart(item.id, item.selectedSize, item.selectedColor)" class="text-[#FF3333]">
-                <img src="/icons/delete-cart.svg" class="w-6 h-6" alt="Delete" />
-              </button>
+    <img 
+      src="/icons/delete-cart.svg" 
+      width="24" 
+      height="24" 
+      class="w-6 h-6" 
+      alt="Delete" 
+    />
+</button>
             </div>
             
             <div class="flex justify-between items-end">

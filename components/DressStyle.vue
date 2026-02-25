@@ -10,22 +10,50 @@
         
         <div class="relative h-[190px] md:h-[289px] bg-white rounded-[20px] overflow-hidden group cursor-pointer">
           <span class="absolute top-6 left-6 md:top-6 md:left-9 text-2xl md:text-3xl font-bold z-10">Casual</span>
-          <img src="/img/frame-1.png" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          <NuxtImg 
+            src="/img/frame-1.png" 
+            width="400" 
+            height="289"
+            format="webp"
+            loading="lazy"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+          />
         </div>
 
         <div class="md:col-span-2 relative h-[190px] md:h-[289px] bg-white rounded-[20px] overflow-hidden group cursor-pointer">
           <span class="absolute top-6 left-6 md:top-6 md:left-9 text-2xl md:text-3xl font-bold z-10">Formal</span>
-          <img src="/img/frame-2.png" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          <NuxtImg 
+            src="/img/frame-2.png" 
+            width="800" 
+            height="289"
+            format="webp"
+            loading="lazy"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+          />
         </div>
 
         <div class="md:col-span-2 relative h-[190px] md:h-[289px] bg-white rounded-[20px] overflow-hidden group cursor-pointer">
           <span class="absolute top-6 left-6 md:top-6 md:left-9 text-2xl md:text-3xl font-bold z-10">Party</span>
-          <img src="/img/frame-3.png" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          <NuxtImg 
+            src="/img/frame-3.png" 
+            width="800" 
+            height="289"
+            format="webp"
+            loading="lazy"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+          />
         </div>
 
         <div class="relative h-[190px] md:h-[289px] bg-white rounded-[20px] overflow-hidden group cursor-pointer">
           <span class="absolute top-6 left-6 md:top-6 md:left-9 text-2xl md:text-3xl font-bold z-10">Gym</span>
-          <img src="/img/frame-4.png" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          <NuxtImg 
+            src="/img/frame-4.png" 
+            width="400" 
+            height="289"
+            format="webp"
+            loading="lazy"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+          />
         </div>
 
       </div>

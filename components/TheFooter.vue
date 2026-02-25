@@ -7,8 +7,20 @@
       </h2>
       <div class="flex flex-col gap-3 w-full md:w-[350px]">
         <div class="relative">
-          <input type="email" placeholder="Enter your email address" class="w-full py-3 px-12 rounded-full outline-none text-black text-sm" />
-          <img src="/icons/letter.svg" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40 object-contain" alt="mail" />
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input 
+            id="newsletter-email"
+            type="email" 
+            placeholder="Enter your email address" 
+            class="w-full py-3 px-12 rounded-full outline-none text-black text-sm" 
+          />
+          <img 
+            src="/icons/letter.svg" 
+            width="20" 
+            height="20" 
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40 object-contain" 
+            alt="Email icon" 
+          />
         </div>
         <button class="w-full bg-white text-black py-3 rounded-full font-bold hover:bg-gray-200 transition text-sm">
           Subscribe to Newsletter
@@ -23,30 +35,37 @@
           We have clothes that suits your style and which you’re proud to wear. From women to men.
         </p>
 
-<div class="flex gap-3">
-  <a v-for="social in socialIcons" :key="social.name" href="#" 
-     :class="[
-       'w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center transition duration-300 shadow-sm group',
-       social.icon === 'facebook' 
-        ? 'bg-black hover:bg-white border border-transparent hover:border-black/10' 
-        : 'bg-white border border-black/10 hover:bg-black'
-     ]">
-    <img :src="`/icons/${social.icon}.svg`" 
-         :class="[
-           'w-3.5 h-3.5 md:w-4 md:h-4 object-contain transition duration-300',
-           social.icon === 'facebook' ? 'group-hover:invert' : 'group-hover:invert'
-         ]" 
-         :alt="social.name" />
-  </a>
-</div>
-        
-      
+        <div class="flex gap-3">
+          <a v-for="social in socialIcons" 
+             :key="social.name" 
+             href="#" 
+             :aria-label="`Follow us on ${social.name}`"
+             :class="[
+               'w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center transition duration-300 shadow-sm group',
+               social.icon === 'facebook' 
+                ? 'bg-black hover:bg-white border border-transparent hover:border-black/10' 
+                : 'bg-white border border-black/10 hover:bg-black'
+             ]">
+            <img 
+              :src="`/icons/${social.icon}.svg`" 
+              width="16" 
+              height="16"
+              :class="[
+                'w-3.5 h-3.5 md:w-4 md:h-4 object-contain transition duration-300',
+                'group-hover:invert'
+              ]" 
+              :alt="social.name" 
+            />
+          </a>
+        </div>
       </div>
 
       <div v-for="col in footerLinks" :key="col.title">
         <h3 class="font-bold uppercase tracking-[2px] text-sm mb-6">{{ col.title }}</h3>
         <ul class="flex flex-col gap-4 text-black/60 text-sm">
-          <li v-for="link in col.links" :key="link" class="hover:text-black cursor-pointer transition">{{ link }}</li>
+          <li v-for="link in col.links" :key="link" class="hover:text-black cursor-pointer transition">
+            <NuxtLink to="/">{{ link }}</NuxtLink>
+          </li>
         </ul>
       </div>
     </div>
@@ -56,7 +75,13 @@
       
       <div class="flex gap-2 h-7 md:h-8">
         <div v-for="pay in paymentIcons" :key="pay" class="w-10 md:w-12 h-full bg-white rounded border border-black/5 flex items-center justify-center p-1 shadow-sm">
-          <img :src="`/icons/${pay}.svg`" class="max-w-full max-h-full object-contain" :alt="pay" />
+          <img 
+            :src="`/icons/${pay}.svg`" 
+            width="40" 
+            height="25"
+            class="max-w-full max-h-full object-contain" 
+            :alt="`${pay} payment method`" 
+          />
         </div>
       </div>
     </div>
@@ -64,6 +89,10 @@
 </template>
 
 <script setup>
+/**
+ * Footer data configuration
+ * Links and icons are separated for better maintainability
+ */
 const footerLinks = [
   { title: 'Company', links: ['About', 'Features', 'Works', 'Career'] },
   { title: 'Help', links: ['Customer Support', 'Delivery Details', 'Terms & Conditions', 'Privacy Policy'] },

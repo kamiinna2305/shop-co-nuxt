@@ -31,9 +31,17 @@
         </div>
       </div>
 
-      <div class="md:w-1/2 relative w-full">
-        <img src="/img/hero.png" alt="Models" class="w-full h-auto object-cover select-none" />
-        </div>
+    <div class="md:w-1/2 relative w-full">
+  <NuxtImg 
+    src="/img/hero.png" 
+    alt="Models" 
+    class="w-full h-auto object-cover select-none"
+    width="800"
+    height="600"
+    priority
+    format="webp"
+  />
+</div>
 
     </div>
   </section>
