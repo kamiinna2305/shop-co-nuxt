@@ -8,11 +8,11 @@
       </h2>
       
       <div class="flex gap-3 flex-shrink-0">
-        <button @click="scroll('left')" class="w-10 h-10 flex items-center justify-center rounded-full border border-black/10 bg-white hover:bg-gray-50 transition-colors">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
+        <button @click="scroll('left')" aria-label="Previous slide" class="w-10 h-10 flex items-center justify-center rounded-full border border-black/10 bg-white hover:bg-gray-50 transition-colors">
+          <svg width="24" height="24" alt="Previous slide" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
         </button>
-        <button @click="scroll('right')" class="w-10 h-10 flex items-center justify-center rounded-full border border-black/10 bg-white hover:bg-gray-50 transition-colors">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M5 12H19M19 12L12 5M19 12L12 19"/></svg>
+        <button @click="scroll('right')" aria-label="Next slide" class="w-10 h-10 flex items-center justify-center rounded-full border border-black/10 bg-white hover:bg-gray-50 transition-colors">
+          <svg width="24" height="24" alt="Next slide" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M5 12H19M19 12L12 5M19 12L12 19"/></svg>
         </button>
       </div>
     </div>

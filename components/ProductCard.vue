@@ -46,13 +46,13 @@
       <span class="font-bold text-2xl md:text-2xl">${{ product.price }}</span>
       
       <template v-if="product.oldPrice">
-        <span class="text-black/40 line-through text-2xl md:text-2xl font-bold">
+        <span class="text-black/60 line-through text-2xl md:text-2xl font-bold">
           ${{ product.oldPrice }}
         </span>
         
-        <span class="bg-[#FF3333]/10 text-[#FF3333] text-xs md:text-sm font-medium px-3 py-1 rounded-full">
-          -{{ Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) }}%
-        </span>
+        <span class="bg-[#FF3333]/10 text-[#CC0000] text-xs md:text-sm font-medium px-3 py-1 rounded-full">
+  -{{ Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) }}%
+</span>
       </template>
     </div>
   </NuxtLink>

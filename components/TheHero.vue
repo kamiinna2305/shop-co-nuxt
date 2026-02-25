@@ -15,17 +15,17 @@
         </button>
 
         <div class="flex flex-wrap justify-center md:justify-start gap-y-6 gap-x-8 mt-10 md:mt-12">
-          <div class="text-left"> <h3 class="text-2xl md:text-4xl font-bold text-black leading-none">200+</h3>
+          <div class="text-left"> <span class="text-2xl md:text-4xl font-bold text-black leading-none">200+</span>
             <p class="text-black/60 text-xs md:text-sm mt-1">International Brands</p>
           </div>
           <div class="hidden md:block w-px h-12 bg-black/10 mx-2"></div>
           <div class="text-left">
-            <h3 class="text-2xl md:text-4xl font-bold text-black leading-none">2,000+</h3>
+            <span class="text-2xl md:text-4xl font-bold text-black leading-none">2,000+</span>
             <p class="text-black/60 text-xs md:text-sm mt-1">High-Quality Products</p>
           </div>
           <div class="hidden md:block w-px h-12 bg-black/10 mx-2"></div>
           <div class="text-left w-full md:w-auto flex flex-col items-center md:items-start">
-             <h3 class="text-2xl md:text-4xl font-bold text-black leading-none">30,000+</h3>
+             <span class="text-2xl md:text-4xl font-bold text-black leading-none">30,000+</span>
              <p class="text-black/60 text-xs md:text-sm mt-1">Happy Customers</p>
           </div>
         </div>
@@ -38,6 +38,7 @@
     class="w-full h-auto object-cover select-none"
     width="800"
     height="600"
+    fetchpriority="high"
     priority
     format="webp"
   />

@@ -1,32 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // Set the compatibility date for Nuxt features
   compatibilityDate: '2025-07-15',
   
-  // Disable devtools for production to optimize performance
+  // Disable devtools in production for better performance
   devtools: { enabled: false },
 
   // Single Page Application mode (No Server Side Rendering)
   ssr: false,
 
+  // Registering project modules
   modules: [
     '@nuxtjs/tailwindcss', 
     '@pinia/nuxt', 
     '@nuxt/image'
   ],
 
-  // Nitro server engine configuration
+  // Nitro server engine configuration for asset optimization
   nitro: {
-    // Compress assets like icons and images during build for faster loading
+    // Compress public assets (icons, images) during build
     compressPublicAssets: true,
-    // Minify server-side code
+    // Minify the server-side output code
     minify: true
   },
 
+  // Vite-specific build optimizations
   vite: {
     build: {
-      // Increase warning limit for chunk sizes
+      // Set the warning limit for chunk sizes (in KB)
       chunkSizeWarningLimit: 500,
-      // CSS code splitting for better page load speeds
+      // Enable CSS code splitting for faster page loads
       cssCodeSplit: true,
       rollupOptions: {
         output: {
@@ -41,13 +44,19 @@ export default defineNuxtConfig({
     }
   },
 
+  // Global application head configuration (SEO & Accessibility)
   app: {
     baseURL: '/',
+    // Smooth transitions between pages
     pageTransition: { 
       name: 'page', 
       mode: 'out-in' 
     },
     head: {
+      // Set HTML language attribute for accessibility and SEO
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'Shop.co',
       meta: [
         { charset: 'utf-8' },
