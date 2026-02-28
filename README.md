@@ -6,7 +6,7 @@ A high-performance, pixel-perfect e-commerce storefront built with **Nuxt 3** an
 
 ## ⚡ Performance Highlights (PageSpeed Insights)
 - **Desktop Score:** 98/100
-- **SEO:** 92/100
+- **SEO:** 100/100
 - **First Contentful Paint:** 0.3s
 - **Total Blocking Time:** 0ms
 
