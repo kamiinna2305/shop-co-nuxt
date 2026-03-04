@@ -1,3 +1,19 @@
+<script setup>
+// 1. ЦЕ МАЄ БУТИ НАЙПЕРШИМ РЯДКОМ
+definePageMeta({
+  layout: 'default'
+})
+
+// 2. Далі твої запити
+const { data } = await useFetch('/api/products')
+const { data: reviewsData } = await useFetch('/api/reviews')
+
+const allReviews = computed(() => {
+  if (!reviewsData.value) return []
+  return Object.values(reviewsData.value).flat()
+})
+</script>
+
 <template>
   <div>
     <TheHero />
@@ -10,8 +26,12 @@
           New Arrivals
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10">
-          <ProductCard v-for="product in data?.newArrivals" :key="product.id" :product="product" />
+          <ProductCard 
+          v-for="product in data?.newArrivals" 
+          :key="product.id" 
+          :product="product" />
         </div>
+        
         <div class="flex justify-center mt-8 md:mt-12 border-b pb-12 md:pb-16">
           <BaseButton variant="white" class="w-full md:w-[218px]">
             View All
@@ -41,14 +61,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-const { data } = await useFetch('/api/products')
-const { data: reviewsData } = await useFetch('/api/reviews')
-
-const allReviews = computed(() => {
-  if (!reviewsData.value) return []
-  
-  return Object.values(reviewsData.value).flat()
-})
-</script>

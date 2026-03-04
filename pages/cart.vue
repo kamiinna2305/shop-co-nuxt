@@ -16,16 +16,16 @@
              :class="{ 'border-b border-black/10': index !== cartStore.items.length - 1 }">
           
           <div class="w-24 h-24 md:w-32 md:h-32 bg-[#F0EEED] rounded-[12px] overflow-hidden flex-shrink-0">
-    <NuxtImg 
-      :src="item.img" 
-      :alt="item.name"
-      width="128" 
-      height="128"
-      format="webp"
-      loading="lazy"
-      class="w-full h-full object-cover" 
-    />
-</div>
+            <NuxtImg 
+              :src="item.img" 
+              :alt="item.name"
+              width="128" 
+              height="128"
+              format="webp"
+              loading="lazy"
+              class="w-full h-full object-cover" 
+            />
+          </div>
           
           <div class="flex-1 flex flex-col justify-between">
             <div class="flex justify-between items-start">
@@ -36,14 +36,14 @@
               </div>
               
               <button @click="cartStore.removeFromCart(item.id, item.selectedSize, item.selectedColor)" class="text-[#FF3333]">
-    <img 
-      src="/icons/delete-cart.svg" 
-      width="24" 
-      height="24" 
-      class="w-6 h-6" 
-      alt="Delete" 
-    />
-</button>
+                <img 
+                  src="/icons/delete-cart.svg" 
+                  width="24" 
+                  height="24" 
+                  class="w-6 h-6" 
+                  alt="Delete" 
+                />
+              </button>
             </div>
             
             <div class="flex justify-between items-end">
@@ -70,7 +70,7 @@
             <span class="text-[#FF3333] font-bold">-${{ discount }}</span>
           </div>
           <div class="flex justify-between text-lg">
-            <span class="text-black/60">Delivery Fee</span> 
+            <span class="text-black/60">Delivery</span> 
             <span class="font-bold">$15</span>
           </div>
           <div class="pt-4 border-t border-black/10 flex justify-between text-xl font-bold">
@@ -90,7 +90,10 @@
           </button>
         </div>
 
-        <button class="w-full bg-black text-white py-4 rounded-full font-bold text-base md:text-lg hover:bg-black/80 transition flex items-center justify-center gap-3">
+        <button 
+          @click="router.push('/checkout')"
+          class="w-full bg-black text-white py-4 rounded-full font-bold text-base md:text-lg hover:bg-black/80 transition flex items-center justify-center gap-3"
+        >
           Go to Checkout <span class="text-xl">→</span>
         </button>
       </div>
@@ -109,8 +112,10 @@
 <script setup lang="ts">
 import { useCartStore } from '~/stores/cart'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router' 
 
 const cartStore = useCartStore()
+const router = useRouter() 
 const promoCode = ref('')
 const isDiscountApplied = ref(false)
 
@@ -118,7 +123,7 @@ const applyPromoCode = () => {
   if (promoCode.value.toUpperCase() === 'NEW20') {
     isDiscountApplied.value = true
   } else {
-    alert('Попробуйте код NEW20')
+    alert('Try code NEW20')
     isDiscountApplied.value = false
   }
 }
