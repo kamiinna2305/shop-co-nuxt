@@ -13,11 +13,11 @@
         </div>
         
         <div class="flex-grow">
-          <p class="font-bold text-sm">Added to Cart</p>
-          <p class="text-xs text-white/60 mt-0.5">{{ toast.message }}</p>
+          <p class="font-bold text-sm">{{ toast.title }}</p>
+          <p v-if="toast.message" class="text-xs text-white/60 mt-0.5">{{ toast.message }}</p>
         </div>
 
-        <NuxtLink to="/cart" class="text-xs font-bold underline hover:text-white/80 transition">
+        <NuxtLink v-if="toast.isCart" to="/cart" class="text-xs font-bold underline hover:text-white/80 transition">
           View
         </NuxtLink>
       </div>
@@ -28,12 +28,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const toasts = ref<{id: number, message: string}[]>([])
+interface Toast {
+  id: number;
+  title: string;
+  message?: string;
+  isCart?: boolean;
+}
+
+const toasts = ref<Toast[]>([])
 let counter = 0
 
-const addToast = (message: string) => {
+// Оновлена функція додавання
+const addToast = (title: string, message: string = '', isCart: boolean = false) => {
   const id = counter++
-  toasts.value.push({ id, message })
+  toasts.value.push({ id, title, message, isCart })
   
   setTimeout(() => {
     toasts.value = toasts.value.filter(t => t.id !== id)
@@ -41,6 +49,7 @@ const addToast = (message: string) => {
 }
 
 defineExpose({ addToast })
+
 </script>
 
 <style scoped>
