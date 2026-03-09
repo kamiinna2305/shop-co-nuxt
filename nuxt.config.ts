@@ -13,8 +13,14 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss', 
     '@pinia/nuxt', 
-    '@nuxt/image'
+    '@nuxt/image',
+    'nuxt-jsonld'
   ],
+
+  // Це допоможе TypeScript побачити нові функції
+  build: {
+    transpile: ['nuxt-jsonld']
+  },
 
   // Nitro engine: compressing and minifying for faster delivery
   nitro: {
