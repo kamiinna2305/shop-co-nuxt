@@ -172,6 +172,8 @@
 
 <script setup lang="ts">
 import { useCartStore } from '~/stores/cart'
+// 1. Додаємо явний імпорт, щоб уникнути помилки "not defined"
+import { useJsonld } from '#imports'
 
 interface Color { name: string; hex: string }
 interface Product { 
@@ -196,6 +198,7 @@ const tabs = [
   { id: 'faqs', name: 'FAQs' }
 ]
 
+// 2. Отримуємо дані (використовуємо await на самому початку)
 const { data: allProducts } = await useFetch<ProductsData>('/api/products')
 const { data: reviewsData } = await useFetch<Record<number, any[]>>('/api/reviews')
 
@@ -203,7 +206,7 @@ const productId = computed(() => Number(route.params.id))
 
 const product = computed(() => {
   if (!allProducts.value) return null
-  const merged = [...allProducts.value.newArrivals, ...allProducts.value.topSelling]
+  const merged = [...(allProducts.value.newArrivals || []), ...(allProducts.value.topSelling || [])]
   return merged.find((p) => p.id === productId.value) || null
 })
 
@@ -211,6 +214,41 @@ const currentProductReviews = computed(() => {
   return reviewsData.value ? reviewsData.value[productId.value] || [] : []
 })
 
+// 3. Додаємо мікророзмітку з посиленою перевіркою
+useJsonld(() => {
+  const p = product.value // створюємо локальну копію для реактивності
+  if (!p) return null
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.name,
+    "description": p.description,
+    "image": [
+      ...(p.images || []),
+      p.img
+    ].filter(Boolean), // прибираємо порожні рядки, якщо є
+    "brand": {
+      "@type": "Brand",
+      "name": "Shop-co"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": p.rating || 5,
+      "reviewCount": currentProductReviews.value.length || 1
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": p.price,
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "url": `https://shop-co-nuxt.netlify.app${route.fullPath}`
+    }
+  }
+})
+
+// Спостерігач за даними для ініціалізації вибору
 watch(product, (newVal) => {
   if (newVal) {
     currentImage.value = newVal.img
