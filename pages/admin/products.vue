@@ -3,17 +3,16 @@ definePageMeta({
   layout: 'admin'
 })
 
-// Отримуємо дані з обробкою помилок
-const { data: products, pending, error } = await useFetch('/api/products')
+const { data: products, pending, error, refresh } = await useFetch('/api/products')
 
 const isModalOpen = ref(false)
-const showToast = inject('showToast', null) // Додаємо null як значення за замовчуванням
+const showToast = inject('showToast', null)
 
 const newProduct = ref({
   name: '',
   price: 0,
   stock: 0,
-  image: '/images/product-1.png'
+  img: '/images/product-1.png'
 })
 
 const getStockClass = (stock) => {
@@ -25,19 +24,14 @@ const getStockClass = (stock) => {
 
 const handleAddProduct = () => {
   if (!newProduct.value.name) return
-  
-  // Перевіряємо чи існує структура даних перед додаванням
   if (products.value && products.value.newArrivals) {
     products.value.newArrivals.unshift({
       ...newProduct.value,
       id: Date.now()
     })
-    
     isModalOpen.value = false
     if (showToast) showToast('Product added successfully!')
-    
-    // Скидання форми
-    newProduct.value = { name: '', price: 0, stock: 0, image: '/images/product-1.png' }
+    newProduct.value = { name: '', price: 0, stock: 0, img: '/images/product-1.png' }
   }
 }
 
@@ -67,93 +61,83 @@ const deleteProduct = (id) => {
         </button>
       </div>
 
-      <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-        <div v-if="pending" class="p-20 text-center">
-          <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-black"></div>
-          <p class="text-gray-400 mt-4 font-medium tracking-widest uppercase text-[10px]">Syncing Database...</p>
-        </div>
-        
-        <table v-else class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-gray-50/50 border-b border-gray-100">
-              <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Product Details</th>
-              <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Price</th>
-              <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Availability</th>
-              <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-50">
-            <tr v-for="product in products?.newArrivals" :key="product.id" class="group hover:bg-gray-50/50 transition-colors">
-              <td class="p-5">
-                <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden flex-shrink-0 border border-gray-50">
-                    <img :src="product.img" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
-                  </div>
-                  <div>
-                    <div class="font-black text-gray-900 text-sm uppercase italic tracking-tight">{{ product.name }}</div>
-                    <div class="text-[10px] text-gray-400 font-bold mt-0.5">REF: #{{ product.id }}</div>
-                  </div>
-                </div>
-              </td>
-              <td class="p-5 text-center font-black text-gray-900 tracking-tighter">${{ product.price }}</td>
-              <td class="p-5 text-center">
-                <span :class="['px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest', getStockClass(product.stock)]">
-                  {{ (product.stock || 0) > 0 ? product.stock + ' units' : 'Out of stock' }}
-                </span>
-              </td>
-              <td class="p-5 text-right">
-                <div class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button class="p-2.5 bg-gray-100 hover:bg-black hover:text-white rounded-xl transition-all duration-300">✏️</button>
-                  <button @click="deleteProduct(product.id)" class="p-2.5 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white rounded-xl transition-all duration-300">🗑️</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div v-if="pending" class="p-20 text-center">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-black"></div>
+        <p class="text-gray-400 mt-4 font-medium tracking-widest uppercase text-[10px]">Syncing Database...</p>
       </div>
+      
+      <div v-else>
+        <div class="hidden lg:block bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-50/50 border-b border-gray-100">
+                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Product Details</th>
+                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Price</th>
+                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-center">Availability</th>
+                <th class="p-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              <tr v-for="product in products?.newArrivals" :key="product.id" class="group hover:bg-gray-50/50 transition-colors">
+                <td class="p-5">
+                  <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden flex-shrink-0 border border-gray-50">
+                      <img :src="product.img" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                    </div>
+                    <div>
+                      <div class="font-black text-gray-900 text-sm uppercase italic tracking-tight">{{ product.name }}</div>
+                      <div class="text-[10px] text-gray-400 font-bold mt-0.5">REF: #{{ product.id }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-5 text-center font-black text-gray-900 tracking-tighter">${{ product.price }}</td>
+                <td class="p-5 text-center">
+                  <span :class="['px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest', getStockClass(product.stock)]">
+                    {{ (product.stock || 0) > 0 ? product.stock + ' units' : 'Out of stock' }}
+                  </span>
+                </td>
+                <td class="p-5 text-right">
+                  <div class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button class="p-2.5 bg-gray-100 hover:bg-black hover:text-white rounded-xl transition-all duration-300">✏️</button>
+                    <button @click="deleteProduct(product.id)" class="p-2.5 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white rounded-xl transition-all duration-300">🗑️</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <Teleport to="body">
-        <div v-if="isModalOpen" class="fixed inset-0 z-[999] flex items-center justify-center p-6">
-          <div class="absolute inset-0 bg-black/60 backdrop-blur-md" @click="isModalOpen = false"></div>
-          
-          <div class="bg-white rounded-[40px] p-10 w-full max-w-md relative z-10 shadow-2xl scale-in">
-            <h3 class="text-3xl font-black uppercase italic mb-8 tracking-tighter">New Entry</h3>
-            
-            <div class="space-y-6">
-              <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Model Name</label>
-                <input v-model="newProduct.name" type="text" class="w-full bg-gray-50 rounded-2xl p-4 font-bold outline-none focus:ring-2 ring-black/5 transition" placeholder="ENTER NAME...">
+        <div class="lg:hidden space-y-4">
+          <div v-for="product in products?.newArrivals" :key="product.id" class="bg-white p-5 rounded-[32px] border border-gray-100 shadow-sm">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 rounded-2xl bg-gray-100 overflow-hidden flex-shrink-0">
+                <img :src="product.img" class="w-full h-full object-cover" />
               </div>
-              
-              <div class="grid grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Price ($)</label>
-                  <input v-model="newProduct.price" type="number" class="w-full bg-gray-50 rounded-2xl p-4 font-bold outline-none focus:ring-2 ring-black/5 transition">
-                </div>
-                <div class="space-y-2">
-                  <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Stock</label>
-                  <input v-model="newProduct.stock" type="number" class="w-full bg-gray-50 rounded-2xl p-4 font-bold outline-none focus:ring-2 ring-black/5 transition">
-                </div>
+              <div class="flex-1">
+                <div class="font-black text-gray-900 text-sm uppercase italic tracking-tight">{{ product.name }}</div>
+                <div class="text-[10px] text-gray-400 font-bold">REF: #{{ product.id }}</div>
+              </div>
+              <div class="flex gap-2">
+                <button class="p-2 bg-gray-50 rounded-xl">✏️</button>
+                <button @click="deleteProduct(product.id)" class="p-2 bg-red-50 text-red-600 rounded-xl">🗑️</button>
               </div>
             </div>
-
-            <div class="flex flex-col gap-4 mt-10">
-              <button @click="handleAddProduct" class="w-full bg-black text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-xl">Confirm & Add</button>
-              <button @click="isModalOpen = false" class="w-full py-2 text-[10px] font-black uppercase text-gray-300 hover:text-black transition tracking-[0.3em]">Discard</button>
+            <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+              <div>
+                <p class="text-[9px] font-black text-gray-400 uppercase">Price</p>
+                <p class="font-black text-gray-900 tracking-tighter">${{ product.price }}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[9px] font-black text-gray-400 uppercase mb-1">Stock</p>
+                <span :class="['px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest', getStockClass(product.stock)]">
+                  {{ product.stock }} units
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </Teleport>
+      </div>
     </div>
-  </div>
-</template>
 
-<style scoped>
-.scale-in {
-  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-</style>    
+    </div>
+</template>
